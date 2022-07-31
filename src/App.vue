@@ -21,7 +21,7 @@
     </div>
 
     <div class="footer">
-      <h2>Misión TIC 2022</h2>
+      <h2>Lorem Ipsum - Misión TIC 2022</h2>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     name: 'App',
     data: function(){
         return{
-          //is_auth: false
+          is_auth: false
         }
     },
 
@@ -84,7 +84,7 @@ export default {
       },
 
       created: function(){
-      this.verifyAuth()
+        this.verifyAuth()
       },
   }
 }
