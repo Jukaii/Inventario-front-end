@@ -29,7 +29,7 @@ export default {
     },
 
     methods: {
-        processLogInUser: function(){
+        processLoginUser: function(){
             axios.post(
                 "https://sginventario-be.herokuapp.com/login/",
                 this.user,
@@ -41,7 +41,7 @@ export default {
                         token_access: result.data.access,
                         token_refresh: result.data.refresh,
                     }
-                    this.$emit('completedLogIn', dataLogin)
+                    this.$emit('completedLogin', dataLogin)
                 })
                 .catch((error) => {
                     if (error.response.status == "401")
