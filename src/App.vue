@@ -13,7 +13,7 @@
 
     <div class="main-component">
       <router-view
-        v-on:completedLogin="completedLogon"
+        v-on:completedLogin="completedLogin"
         v-on:completedSignUp="completedSignUp"
         v-on:logOut="logOut"
         >
