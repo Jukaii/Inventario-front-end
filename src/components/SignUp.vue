@@ -14,7 +14,7 @@
                 <br>
                 <input type="number" v-model="user.account.balance" placeholder="Initial Balance">
                 <br>
-                <button type="submit">Registrarse</button>
+                <button type="submit">Registrarse Lorem Ipsum</button>
             </form>
         </div>
     </div>
