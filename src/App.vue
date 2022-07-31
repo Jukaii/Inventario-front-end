@@ -48,11 +48,11 @@ export default {
       },
 
       loadLogin: function(){
-        this.$router.push({name: "login"});
+        this.$router.push({ name: "login" });
       },
 
       loadSignUp: function(){
-        this.$router.push({name: "signUp"});
+        this.$router.push({ name: "signUp" });
       },
 
       loadHome: function() {
