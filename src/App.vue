@@ -4,7 +4,9 @@
       <h1>Sistema de Gestión Inventario</h1>
       <nav>
         <button v-if="is_auth" v-on:click="loadHome"> Inicio </button>
-        <button v-if="is_auth" v-on:click="loadAccount"> Cuenta </button>
+        <button v-if="is_auth" v-on:click="loadRol"> Rol </button>
+        <button v-if="is_auth" v-on:click="loadProducto"> Agregar Producto </button>
+        <button v-if="is_auth" v-on:click="loadCategoria"> Agregar Categoria </button>
         <button v-if="is_auth" v-on:click="logOut"> Cerrar Sesión </button>
         <button v-if="!is_auth" v-on:click="loadLogin" > Iniciar Sesión </button>
         <button v-if="!is_auth" v-on:click="loadSignUp" > Registrarse </button>
@@ -59,14 +61,22 @@ export default {
         this.$router.push({ name: "home" });
       },
 
+      loadProducto: function() {
+        this.$router.push({ name: "producto" });
+      },
+
+      loadCategoria: function() {
+        this.$router.push({ name: "categoria" });
+      },
+
       logOut: function () {
         localStorage.clear();
         alert("Sesión Cerrada");
         this.verifyAuth();
       },
 
-      loadAccount: function () {
-        this.$router.push({ name: "account" });
+      loadRol: function () {
+        this.$router.push({ name: "rol" });
       },
 
       completedLogin: function(data) {
@@ -103,7 +113,7 @@ body{
   height: 10vh;
   min-height: 100px;
 
-  background-color: #283747 ;
+  background-color: rgba(4, 4, 36, 0.945);
   color:#E5E7E9 ;
 
   display: flex;
@@ -118,7 +128,7 @@ body{
 
 .header nav {
   height: 100%;
-  width: 20%;
+  width: 30%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -127,10 +137,10 @@ body{
 
 .header nav button{
   color: #E5E7E9;
-  background: #283747;
+  background-color: rgba(4, 4, 36, 0.945);
   border: 1px solid #E5E7E9;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 10px;
 }
 
 .header nav button:hover{

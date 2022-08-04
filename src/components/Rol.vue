@@ -1,9 +1,9 @@
 <template>
     <div v-if="loaded" class="information">
         <h1>Información de su cuenta</h1>
-        <h2>Nombre: <span>{{name}}</span></h2>
-        <h2>Saldo: <span>{{balance}} COP </span></h2>
-        <h2>Correo electrónico: <span>{{email}}</span></h2>
+        <h2>Status: <span>{{status}}</span></h2>
+        <h2>Rol: <span>{{rol}}</span></h2>
+        <h2>ID Rol: <span>{{userRol_id}}</span></h2>
     </div>
 </template>
 
@@ -13,12 +13,12 @@
 
     export default {
 
-        name: "Account",
+        name: "Rol",
         data: function(){
             return {
-                name: "",
-                email: "",
-                balance: 0,
+                status: "",
+                rol: "",
+                userRol_id: "",
                 loaded: false,
             }
         },
@@ -35,9 +35,9 @@
                 let userId = jwt_decode(token).user_id.toString();
                 axios.get(`https://sginventario-be.herokuapp.com/user/${userId}/`, {headers: {'Authorization': `Bearer ${token}`}})
                     .then((result) => {
-                        this.name = result.data.name;
-                        this.email = result.data.email;
-                        this.balance = result.data.account.balance;
+                        this.status = result.data.status;
+                        this.rol = result.data.rol;
+                        this.userRol_id = result.data.rol.userRol_id;
                         this.loaded = true;
                     })
 

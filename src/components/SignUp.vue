@@ -1,22 +1,45 @@
 <template>
     <div class="signUp_user">
-        <div class="container_signUp_user">
             <h2>Registrarse</h2>
-
             <form v-on:submit.prevent="processSignUp" >
-                <input type="text" v-model="user.username" placeholder="Username">
-                <br>
-                <input type="password" v-model="user.password" placeholder="Password">
-                <br>
-                <input type="text" v-model="user.name" placeholder="Name">
-                <br>
-                <input type="email" v-model="user.email" placeholder="Email">
-                <br>
-                <input type="number" v-model="user.account.balance" placeholder="Initial Balance">
-                <br>
-                <button type="submit">Registrarse Lorem Ipsum</button>
+                <div class="user-box">
+                    <input type="text" required="" v-model="user.nombre">
+                    <label>Nombre</label>
+                </div>
+                    <br>
+                <div class="user-box">   
+                    <input type="text" required="" v-model="user.apellido">
+                    <label>Apellido</label>
+                </div> 
+                    <br>
+                <div class="user-box">     
+                    <input type="text" required="" v-model="user.username">
+                    <label>Username</label>
+                </div>
+                    <br>
+                <div class="user-box">     
+                    <input type="password" required="" v-model="user.password">
+                    <label>Password</label>
+                </div>
+                    <br>
+                <div class="user-box">     
+                    <input type="text" required="" v-model="user.telefono">
+                    <label>Teléfono</label>
+                </div>
+                    <br>
+                <div class="user-box">        
+                    <input type="text" required="" v-model="user.email">
+                    <label>Email</label>
+                </div>    
+                    <br> 
+                    <button type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Registrarse Lorem Ipsum</button>              
+   
             </form>
-        </div>
     </div>
 </template>
 
@@ -29,15 +52,12 @@ export default {
     data: function(){
         return {
             user: {
+                nombre: "",
+                apellido: "",
                 username: "",
                 password: "",
-                name: "",
+                telefono: "",
                 email: "",
-                account: {
-                    lastChangeDate: (new Date()).toJSON().toString(),
-                    balance: 0,
-                    isActive: true
-                }
             }
         }
     },
@@ -69,59 +89,164 @@ export default {
 <style>
 
 .signUp_user{
-    margin: 0;
-    padding: 0%;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(4, 4, 36, 0.945);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
 }
-
-.container_signUp_user {
-    border: 3px solid #283747;
-    border-radius: 10px;
-    width: 25%;
-    height: 60%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .signUp_user h2{
-    color: #283747;
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
 }
 
 .signUp_user form{
-    width: 70%;
+    width: 80%;
 }
 
-.signUp_user input{
-    height: 40px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    margin: 5px 0;
-    border: 1px solid #283747;
+.signUp_user .user-box {
+  position: relative;
 }
 
-.signUp_user button{
-    width: 100%;
-    height: 40px;
-    color: #E5E7E9;
-    background: #283747;
-    border: 1px solid #E5E7E9;
-    border-radius: 5px;
-    padding: 10px 25px;
-    margin: 5px 0 25px 0;
+.signUp_user .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.signUp_user .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.signUp_user .user-box input:focus ~ label,
+.signUp_user .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+.signUp_user form button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  background: rgba(4, 4, 36, 0.945);
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 20px;
+  letter-spacing: 4px
 }
 
 .signUp_user button:hover{
-    color: #E5E7E9;
-    background: crimson;
-    border: 1px solid #283747;
+  background: rgba(4, 4, 36, 0.945);
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.signUp_user button span {
+  position: absolute;
+  display: block;
+}
+
+.signUp_user button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.signUp_user button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.signUp_user button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.signUp_user button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
 }
 
 </style>
