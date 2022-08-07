@@ -1,8 +1,10 @@
 <template>
     <div v-if="loaded" class="information">
-        <h1>Información del Rol</h1>
-        <h2>Status: <span>{{status}}</span></h2>
-        <h2>Rol: <span>{{rol}}</span></h2>
+        <h1>Información de las categorias</h1>
+        <h2>Nombre Producto: <span>{{nombre}}</span></h2>
+        <h2>Precio de Venta: <span>{{precio_venta}}</span></h2>
+        <h2>Existencias: <span>{{existencias}}</span></h2>
+        <h2>ID Categoria: <span>{{categoria_id}}</span></h2>
     </div>
 </template>
 
@@ -12,11 +14,13 @@
 
     export default {
 
-        name: "Rol",
+        name: "ListarProductos",
         data: function(){
             return {
-                status: "",
-                rol: "",
+                nombre: "",
+                precio_venta: "",
+                existencias: "",
+                categoria_id: "",
                 loaded: false,
             }
         },
@@ -31,10 +35,12 @@
 
                 let token = localStorage.getItem("token_access");
                 let userId = jwt_decode(token).user_id.toString();
-                axios.get(`https://sginventario-be.herokuapp.com/rol/${userId}/`, {headers: {'Authorization': `Bearer ${token}`}})
+                axios.get(`https://sginventario-be.herokuapp.com/ListarProductos/`, {headers: {'Authorization': `Bearer ${token}`}})
                     .then((result) => {
-                        this.status = result.data.status;
-                        this.rol = result.data.rol;
+                        this.nombre = result.data.nombre;
+                        this.precio_venta = result.data.precio_venta;
+                        this.existencias = result.data.existencias;
+                        this.categoria_id = result.data.categoria_id;
                         this.loaded = true;
                     })
 

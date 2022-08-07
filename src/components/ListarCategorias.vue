@@ -1,8 +1,7 @@
 <template>
     <div v-if="loaded" class="information">
-        <h1>Información del Rol</h1>
-        <h2>Status: <span>{{status}}</span></h2>
-        <h2>Rol: <span>{{rol}}</span></h2>
+        <h1>Información de las categorias</h1>
+        <h2>Nombre categoria: <span>{{status}}</span></h2>
     </div>
 </template>
 
@@ -12,11 +11,10 @@
 
     export default {
 
-        name: "Rol",
+        name: "ListarCategorias",
         data: function(){
             return {
-                status: "",
-                rol: "",
+                nombreCategoria: "",
                 loaded: false,
             }
         },
@@ -31,10 +29,9 @@
 
                 let token = localStorage.getItem("token_access");
                 let userId = jwt_decode(token).user_id.toString();
-                axios.get(`https://sginventario-be.herokuapp.com/rol/${userId}/`, {headers: {'Authorization': `Bearer ${token}`}})
+                axios.get(`https://sginventario-be.herokuapp.com/ListarCategorias/${userId}/`, {headers: {'Authorization': `Bearer ${token}`}})
                     .then((result) => {
-                        this.status = result.data.status;
-                        this.rol = result.data.rol;
+                        this.nombreCategoria = result.data.nombreCategoria;
                         this.loaded = true;
                     })
 
