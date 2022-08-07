@@ -28,7 +28,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" v-if="is_auth">
+				<a href="#" v-if="is_auth" v-on:click="loadRol">
 					<i class="fa fa-edit"></i>
 					<strong>Rol</strong>
 					<small>Role</small>
@@ -36,7 +36,7 @@
         <ul>
 					<li><a href="#"><i class="fa fa-globe"></i>Registrar</a></li>
 					<li>
-						<a href="#" v-if="is_auth" v-on:click="loadRol"><i class="fa fa-group"></i>Listar</a>
+						<a href="#"><i class="fa fa-group"></i>Listar</a>
 					</li>
 					<li><a href="#"><i class="fa fa-trophy"></i>Actualizar</a></li>
 					<li><a href="#"><i class="fa fa-certificate"></i>Eliminar</a></li>
@@ -88,7 +88,6 @@
         v-on:completedSignUp="completedSignUp"
         v-on:completedRegProducto="completedRegProducto"
         v-on:completedRegCategoria="completedRegCategoria"
-        v-on:loadRol="loadRol"
         v-on:logOut="logOut"
         >
       </router-view>

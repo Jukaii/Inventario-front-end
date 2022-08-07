@@ -54,8 +54,7 @@ const routes = [{
     path: '/user/ListarCategorias',
     name: "ListarCategorias",
     component: ListarCategorias
-},        
-
+}
 ];
 const router = createRouter({
     history: createWebHistory(),
