@@ -13,7 +13,7 @@
                     <span></span>
                     <span></span>
                     <span></span>
-                    Crear Categoria</button>              
+                    Actualizar Categoria</button>              
                </form>
         </div>
 </template>
