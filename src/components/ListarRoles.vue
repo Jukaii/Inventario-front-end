@@ -1,24 +1,23 @@
 <template>
     <div class="container">
-        <h3 class="p-3 text-center">Listado de Productos</h3>
+        <h3 class="p-3 text-center">Listado de Roles</h3>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Descripción de Producto</th>
-                    <th>Precio de Venta</th>
-                    <th>Existencias</th>
-                    <th>Id Categoría</th>
-                    <th>Actualizar</th>
+                    <th>ID Rol</th>
+                    <th>Status</th>
+                    <th>Rol</th>
+                    <th>ID Usuario</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="producto in productos" v-bind:key="producto.idProducto">
-                    <td>{{producto.nombre}}</td>
-                    <td>{{producto.precio_venta}}</td>
-                    <td>{{producto.existencias}}</td>
-                    <td>{{producto.categoria}}</td>
-                    <td><router-link :to="'/productos/ActualizarProductos/'+producto.idProducto">Actualizar</router-link></td>
-                    <td><router-link :to="'/productos/BorrarProductos/'+producto.idProducto">Eliminar</router-link></td>
+                <tr v-for="rol in Rol" v-bind:key="rol.id">
+                    <td>{{rol.id}}</td>
+                    <td>{{rol.status}}</td>
+                    <td>{{rol.rol}}</td>
+                    <td>{{rol.userRol}}</td>
+                    <td><router-link :to="'/Rol/ActualizarRoles/'+rol.id">Actualizar</router-link></td>
+                    <td><router-link :to="'/Rol/BorrarRol/'+rol.id">Eliminar</router-link></td>
                 </tr>
             </tbody>
         </table>
@@ -26,30 +25,34 @@
 </template>
 
 <script>
+
     import axios from 'axios';
    
     export default {
-        name: "ListarProductos",
+
+        name: "ListarRoles",
         data()
         {
             return {
-                productos: []
+                Rol: []
             }
         },
         mounted()
         {
             let vue =this;
-            axios.get('https://sginventario-be.herokuapp.com/productos/')
+            axios.get('https://sginventario-be.herokuapp.com/rol/')
            .then(function(response) {
-                vue.productos = response.data;
-                console.log(vue.productos)
+                vue.Rol = response.data;
+                console.log(vue.Rol)
            })
             
+
         },
     }
 </script>
 
 <style>
+
 .information{
     display: flex;
     flex-direction: column;
@@ -66,25 +69,30 @@
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
 }
+
 .information h1{
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
   text-align: center;
 }
+
 .information h2{
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
   text-align: center;
 }
+
 .information span{
     color: crimson;
     font-weight: bold;
 }
+
 .table-bordered {
     border: 1px solid #dee2e6;
 }
+
 .table {
     width: 100%;
     margin-bottom: 1rem;

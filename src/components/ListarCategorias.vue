@@ -1,59 +1,48 @@
 <template>
-    <div v-if="loaded" class="information">
-        <h1>Información de las categorias</h1>
-        <h2>Nombre categoria: <span>{{status}}</span></h2>
-    </div>
+    <div class="container">
+        <h3 class="p-3 text-center">Listado de Categorias</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID Categoria</th>
+                    <th>Nombre Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="categoria in categorias" v-bind:key="categoria.idCategoria">
+                    <td>{{categoria.idCategoria}}</td>
+                    <td>{{categoria.nombreCategoria}}</td>
+                    <td><router-link :to="'/categorias/ActualizarCategorias/'+categoria.idCategoria">Actualizar</router-link></td>
+                    <td><router-link :to="'/categorias/BorrarCategoria/'+categoria.idCategoria">Eliminar</router-link></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
 </template>
 
 <script>
-    import jwt_decode from "jwt-decode";
-    import axios from 'axios';
 
+    import axios from 'axios';
+   
     export default {
 
         name: "ListarCategorias",
-        data: function(){
+        data()
+        {
             return {
-                nombreCategoria: "",
-                loaded: false,
+                categorias: []
             }
         },
+        mounted()
+        {
+            let vue =this;
+            axios.get('https://sginventario-be.herokuapp.com/categorias/')
+           .then(function(response) {
+                vue.categorias = response.data;
+                console.log(vue.categorias)
+           })
+            
 
-        methods: {
-            getData: async function () {
-                if (localStorage.getItem("token_access") === null || localStorage.getItem("token_refresh") === null) {
-                    this.$emit('logOut');
-                    return;
-                }
-                await this.verifyToken();
-
-                let token = localStorage.getItem("token_access");
-                let userId = jwt_decode(token).user_id.toString();
-                axios.get(`https://sginventario-be.herokuapp.com/ListarCategorias/${userId}/`, {headers: {'Authorization': `Bearer ${token}`}})
-                    .then((result) => {
-                        this.nombreCategoria = result.data.nombreCategoria;
-                        this.loaded = true;
-                    })
-
-                    .catch(() => {
-                        this.$emit('logOut');
-                    });
-            },
-            verifyToken: function () {
-            return axios.post("https://sginventario-be.herokuapp.com/refresh/", {refresh: localStorage.getItem("token_refresh")}, {headers: {}}
-            )
-                    .then((result) => {
-                    localStorage.setItem("token_access", result.data.access);
-                    })
-
-                    .catch(() => {
-                    this.$emit('logOut');
-                    });
-            }
-        },
-
-        created: async function(){
-            this.getData();
         },
     }
 </script>
@@ -96,4 +85,20 @@
     font-weight: bold;
 }
 
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+td {
+  text-align: center;
+  vertical-align: middle;
+}
 </style>

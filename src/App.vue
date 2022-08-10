@@ -34,12 +34,10 @@
 					<small>Role</small>
 				</a>
         <ul>
-					<li><a href="#"><i class="fa fa-globe"></i>Registrar</a></li>
+					<li><a href="#" v-if="is_auth" v-on:click="loadRegRol"><i class="fa fa-globe"></i>Registrar</a></li>
 					<li>
-						<a href="#"><i class="fa fa-group"></i>Listar</a>
+						<a href="#" v-if="is_auth" v-on:click="loadListarRol"><i class="fa fa-group"></i>Listar</a>
 					</li>
-					<li><a href="#"><i class="fa fa-trophy"></i>Actualizar</a></li>
-					<li><a href="#"><i class="fa fa-certificate"></i>Eliminar</a></li>
 				</ul>
 			</li>
 			<li>
@@ -49,12 +47,11 @@
 					<small>Products</small>
 				</a>
         <ul>
-					<li><a href="#" v-if="is_auth" v-on:click="loadProducto"><i class="fa fa-globe"></i>Registrar</a></li>
+					<li>
+            <a href="#" v-if="is_auth" v-on:click="loadProducto"><i class="fa fa-globe"></i>Registrar</a></li>
 					<li>
 						<a href="#" v-if="is_auth" v-on:click="loadListarProducto"><i class="fa fa-group"></i>Listar</a>
 					</li>
-					<li><a href="#"><i class="fa fa-trophy"></i>Actualizar</a></li>
-					<li><a href="#"><i class="fa fa-certificate"></i>Eliminar</a></li>
 				</ul>
 			</li>
 			<li>
@@ -68,8 +65,6 @@
 					<li>
 						<a href="#" v-if="is_auth" v-on:click="loadListarCategoria"><i class="fa fa-group"></i>Listar</a>
 					</li>
-					<li><a href="#"><i class="fa fa-trophy"></i>Actualizar</a></li>
-					<li><a href="#"><i class="fa fa-certificate"></i>Eliminar</a></li>
 				</ul>
 			</li>
       <li>
@@ -88,6 +83,13 @@
         v-on:completedSignUp="completedSignUp"
         v-on:completedRegProducto="completedRegProducto"
         v-on:completedRegCategoria="completedRegCategoria"
+        v-on:completedRegRol="completedRegRol"
+        v-on:completedUpdateProducto="completedUpdateProducto"
+        v-on:completedUpdateCategoria="completedUpdateCategoria"
+        v-on:completedUpdateRol="completedUpdateRol"
+        v-on:completedBorrarProducto="completedBorrarProducto"
+        v-on:completedBorrarCategoria="completedBorrarCategoria"
+        v-on:completedBorrarRol="completedBorrarRol"
         v-on:logOut="logOut"
         >
       </router-view>
@@ -131,32 +133,12 @@ export default {
         this.$router.push({ name: "home" });
       },
 
-      loadCategoria: function() {
-        this.$router.push({ name: "categorias" });
-      },
-
       logOut: function () {
         localStorage.clear();
         alert("Sesión Cerrada");
         this.verifyAuth();
-      },
-
-      loadRol: function () {
-        this.$router.push({ name: "rol" });
-      },
-
-      loadListarProducto: function () {
-        this.$router.push({ name: "ListarProductos" });
-      },
-
-      loadListarCategoria: function () {
-        this.$router.push({ name: "ListarCategorias" });
-      },
-
-      loadProducto: function () {
-        this.$router.push({ name: "productos" });
-      },
-
+      },      
+      
       completedLogin: function(data) {
         localStorage.setItem("isAuth", true);
         localStorage.setItem("username", data.username);
@@ -165,22 +147,78 @@ export default {
         alert("Autenticación Exitosa");
         this.verifyAuth();
       },
-
-      completedRegProducto: function(data) {
-        alert("Registro de producto exitoso");
-        this.verifyAuth();
-      },
-
-      completedRegCategoria: function(data) {
-        alert("Registro de categoria exitoso");
-        this.verifyAuth();
-      },
-
+      
       completedSignUp: function(data) {
         //alert("Registro de usuario Exitoso");
         this.completedLogin(data);
       },
 
+      //CRUD PRODUCTOS
+      completedBorrarProducto: function(data) {
+        alert("Eliminación de producto exitosa");
+        this.loadListarProducto();
+      },
+      completedUpdateProducto: function(data) {
+        alert("Actualización de producto exitosa");
+        this.verifyAuth();
+      },
+      completedRegProducto: function(data) {
+        alert("Registro de producto exitoso");
+        this.loadListarProducto();
+      },
+      loadActualizarProductos: function () {
+        this.$router.push({ name: "ActualizarProductos" });
+      },  
+      loadProducto: function () {
+        this.$router.push({ name: "productos" });
+      },
+      loadListarProducto: function () {
+        this.$router.push({ name: "ListarProductos" });
+      },
+
+      //CRUD CATEGORIA
+      completedBorrarCategoria: function(data) {
+        alert("Eliminación de categoria exitosa");
+        this.loadListarCategoria();
+      },
+      completedUpdateCategoria: function(data) {
+        alert("Actualización de categoria exitosa");
+        this.loadListarCategoria();
+      },
+      completedRegCategoria: function(data) {
+        alert("Registro de categoria exitoso");
+        this.loadListarCategoria();
+      },
+      loadListarCategoria: function () {
+        this.$router.push({ name: "ListarCategorias" });
+      },
+      loadCategoria: function() {
+        this.$router.push({ name: "categorias" });
+      },
+
+      //CRUD ROL
+      completedBorrarRol: function(data) {
+        alert("Eliminación de Rol exitoso");
+        this.loadListarRol();
+      },
+      completedUpdateRol: function(data) {
+        alert("Actualización de Rol exitoso");
+        this.loadListarRol();
+      },
+      completedRegRol: function(data) {
+        alert("Registro de Rol exitoso");
+        this.loadListarRol();
+      },
+      loadListarRol: function () {
+        this.$router.push({ name: "ListarRoles"});
+      },  
+      loadRol: function () {
+        this.$router.push({ name: "rol" });
+      },
+      loadRegRol: function () {
+        this.$router.push({ name: "RegistrarRol" });
+      },
+      
       created: function(){
         this.verifyAuth()
       },
